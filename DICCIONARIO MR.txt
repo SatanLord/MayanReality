@@ -1,0 +1,188 @@
+﻿+--------------------------------------------+
+| Catalog Diff Report                        |
++--------------------------------------------+
+Schema `default`.`mayanreality` was dropped
+Schema `default`.`mydb` was modified
+  - default character set latin1 --> latin1
+  - default collate latin1_swedish_ci --> latin1_swedish_ci
+Table `mayanreality`.`admin` was dropped
+Table `mayanreality`.`eventos` was dropped
+Table `mayanreality`.`eventos_has_objeto` was dropped
+Table `mayanreality`.`objeto` was dropped
+Table `mayanreality`.`sitio` was dropped
+Table `mayanreality`.`usuario` was dropped
+Table `mayanreality`.`admin_has_sitio` was dropped
+Table `mayanreality`.`usuario_has_sitio` was dropped
+Table `mayanreality`.`sitio_has_eventos` was dropped
+Table `mydb`.`admin` was created
+  columns:
+  - CLAVE_ADMIN of type INT
+  - NOMBRE_ADMIN of type VARCHAR
+  - APELLIDO_PAT of type VARCHAR
+  - APELLIDO_MAT of type VARCHAR
+  - CORREO_ELEC of type VARCHAR
+  - TELEFONO of type INT
+  __
+  indices:
+  - PRIMARY with columns: CLAVE_ADMIN
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+Table `mydb`.`admin_has_sitio` was created
+  columns:
+  - admin_CLAVE_ADMIN of type INT
+  - sitio_id_sitio of type INT
+  __
+  indices:
+  - PRIMARY with columns: admin_CLAVE_ADMIN, sitio_id_sitio
+  - fk_admin_has_sitio_sitio1_idx with columns: sitio_id_sitio
+  - fk_admin_has_sitio_admin1_idx with columns: admin_CLAVE_ADMIN
+  __
+  foreign keys:
+  - fk_admin_has_sitio_admin1 with columns: admin_CLAVE_ADMIN, referred table: admin with columns: CLAVE_ADMIN
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  - fk_admin_has_sitio_sitio1 with columns: sitio_id_sitio, referred table: sitio with columns: id_sitio
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+Table `mydb`.`eventos` was created
+  columns:
+  - ID_EVENTO of type INT
+  - BUSQUEDA of type VARCHAR
+  - UBICACION of type VARCHAR
+  - TIEMPO_LLEGADA of type INT
+  - INFADICIONAL of type VARCHAR
+  __
+  indices:
+  - PRIMARY with columns: ID_EVENTO
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+Table `mydb`.`eventos_has_objeto` was created
+  columns:
+  - eventos_ID_EVENTO of type INT
+  - objeto_ID_OBJ of type INT
+  __
+  indices:
+  - PRIMARY with columns: eventos_ID_EVENTO, objeto_ID_OBJ
+  - fk_eventos_has_objeto_objeto1_idx with columns: objeto_ID_OBJ
+  - fk_eventos_has_objeto_eventos1_idx with columns: eventos_ID_EVENTO
+  __
+  foreign keys:
+  - fk_eventos_has_objeto_eventos1 with columns: eventos_ID_EVENTO, referred table: eventos with columns: ID_EVENTO
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  - fk_eventos_has_objeto_objeto1 with columns: objeto_ID_OBJ, referred table: objeto with columns: ID_OBJ
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+Table `mydb`.`objeto` was created
+  columns:
+  - ID_OBJ of type INT
+  - CLAVE_OBJ of type INT
+  - NOMBRE_OBJ of type VARCHAR
+  - DESCRIPCION of type VARCHAR
+  __
+  indices:
+  - PRIMARY with columns: ID_OBJ
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+Table `mydb`.`sitio` was created
+  columns:
+  - NOMBRE_SITIO of type VARCHAR
+  - DIRECCION of type VARCHAR
+  - NOMBRE_ENCARGADO of type VARCHAR
+  - TELEFONO_ENCARGADO of type INT
+  - id_sitio of type INT
+  __
+  indices:
+  - PRIMARY with columns: id_sitio
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+Table `mydb`.`sitio_has_eventos` was created
+  columns:
+  - sitio_id_sitio of type INT
+  - eventos_ID_EVENTO of type INT
+  __
+  indices:
+  - PRIMARY with columns: sitio_id_sitio, eventos_ID_EVENTO
+  - fk_sitio_has_eventos_eventos1_idx with columns: eventos_ID_EVENTO
+  - fk_sitio_has_eventos_sitio1_idx with columns: sitio_id_sitio
+  __
+  foreign keys:
+  - fk_sitio_has_eventos_eventos1 with columns: eventos_ID_EVENTO, referred table: eventos with columns: ID_EVENTO
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  - fk_sitio_has_eventos_sitio1 with columns: sitio_id_sitio, referred table: sitio with columns: id_sitio
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+Table `mydb`.`usuario` was created
+  columns:
+  - NUM_USUARIO of type INT
+  - NOMBRE_USUARIO of type VARCHAR
+  - APELLIDO_PAT of type VARCHAR
+  - APELLIDO_MAT of type VARCHAR
+  - CORREO_ELEC of type VARCHAR
+  - CONTRASEÑA of type VARCHAR
+  - eventos_ID_EVENTO of type INT
+  __
+  indices:
+  - PRIMARY with columns: NUM_USUARIO
+  - fk_usuario_eventos1_idx with columns: eventos_ID_EVENTO
+  __
+  foreign keys:
+  - fk_usuario_eventos1 with columns: eventos_ID_EVENTO, referred table: eventos with columns: ID_EVENTO
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+Table `mydb`.`usuario_has_sitio` was created
+  columns:
+  - usuario_NUM_USUARIO of type INT
+  - sitio_id_sitio of type INT
+  __
+  indices:
+  - PRIMARY with columns: usuario_NUM_USUARIO, sitio_id_sitio
+  - fk_usuario_has_sitio_sitio1_idx with columns: sitio_id_sitio
+  - fk_usuario_has_sitio_usuario1_idx with columns: usuario_NUM_USUARIO
+  __
+  foreign keys:
+  - fk_usuario_has_sitio_sitio1 with columns: sitio_id_sitio, referred table: sitio with columns: id_sitio
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  - fk_usuario_has_sitio_usuario1 with columns: usuario_NUM_USUARIO, referred table: usuario with columns: NUM_USUARIO
+    - action on update: NO ACTION
+    - action on delete: NO ACTION
+  __
+  attributes:
+  - engine: InnoDB
+  - default character set: latin1
+  __
+----------------------------------------------
